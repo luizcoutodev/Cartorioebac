@@ -2,6 +2,7 @@
 #include <stdlib.h> //alocação de espaço de memória
 #include <locale.h> //biblioteca de alocação de texto de região
 #include <string.h> //biblioteca responsável por strings.
+#include <windows.h>
 
 int registro() //função responsável por cadastrar usuários no sistema.
 {
@@ -153,7 +154,8 @@ int main()
 		printf ("Escolha a opção desejada: \n\n");
 		printf ("\t 1 - Registrar nomes\n"); 
 		printf("\t 2 - Consultar nomes\n");
-		printf ("\t 3 - Deletar nomes \n \n \n"); //fim do menu
+		printf ("\t 3 - Deletar nomes \n");
+		printf ("\t 4 - Sair do sistema \n\n\n"); //fim do menu
 	
 		printf("Digite a opção:");
 		scanf("%d", &opcao);	//armazenando a escolha do usuário.
@@ -172,6 +174,13 @@ int main()
 			
 			case 3:
 			deletar();
+			break;
+			
+			case 4:
+			printf("**************************************** \n");
+			printf("Obrigado por usar nosso sistema. Até logo! \n");
+			printf("****************************************");
+			return 0;
 			break;
 			
 			default:
