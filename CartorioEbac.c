@@ -141,53 +141,103 @@ int deletar() //criando a função deletar.
 
 int main()
 {
+	setlocale(LC_ALL, "Portuguese"); //definindo linguagem
 	int opcao=0; //definindo variável opção
 	int laco=1; //variavel laço criada, para o loop do menu.
+	char senhaDigitada[30];
+	char usuario[30];
+	char senha[30];
+	char conteudoArquivo[30]; //Senha que está salva dentro do arquivo txt usuário.
 	
-	for(laco=1; laco=1;) //iniciada repetição do menu
-	{
-		system("cls");
+	printf("### Cartório da EBAC ### \n \tBem vindo \n\n");
+	printf("Digite seu nome de usuário:"); //Verificando se o usuário já encontra-se no sistema.
+	scanf("%s", usuario); 
+	
+	FILE *file; //verificando se o arquivo do usuário ja encontra-se criado.
+	file = fopen(usuario,"r"); 
+	
+	if (file == NULL) { //caso não esteja criado é aberto o registro de contas.
+		fclose(file);
+		printf("\nÉ necessário criar uma conta antes que possa prosseguir.");
+		system("pause");
+		printf("\nDigite o nome de usuário desejado (até 30 caracteres):");
+		scanf("%s", usuario);
 		
-		setlocale(LC_ALL, "Portuguese"); //definindo linguagem
+		FILE *file;
+		file = fopen(usuario,"w"); //criando arquivo com nome de usuário.
+		printf("\nDigite a senha desejada:");
+		scanf("%s", senhaDigitada);
+		fprintf(file, senhaDigitada); // salvando a senha dentro do arquivo do usuário.
+		fclose(file);
+		
+		printf("\nConta criada, abra o programa novamente.");
+		system ("pause");
+		
+		
+	} else {
 	
-		printf("### Cartório da EBAC ### \n \tBem vindo \n\n"); //início menu
-		printf ("Escolha a opção desejada: \n\n");
-		printf ("\t 1 - Registrar nomes\n"); 
-		printf("\t 2 - Consultar nomes\n");
-		printf ("\t 3 - Deletar nomes \n");
-		printf ("\t 4 - Sair do sistema \n\n\n"); //fim do menu
-	
-		printf("Digite a opção:");
-		scanf("%d", &opcao);	//armazenando a escolha do usuário.
-	
-		system("cls");
-	
-		switch(opcao) //escolha de opção do usuário
-		{
-			case 1:	
-			registro();
-			break;
+		printf("\nDigite a senha:");
+		scanf ("%s", senha); //FAZER A SENHA COPIAR O CONTEUDO DO TXT E COMPARAR PARA VER SE SÃO IGUAIS. 
+		
+		FILE *file;
+		file = fopen(usuario, "r");
+		
+		while(fgets(conteudoArquivo, 30,file) != NULL){
+		}	
+		
 			
-			case 2:
-			consulta();
-			break;
-			
-			case 3:
-			deletar();
-			break;
-			
-			case 4:
-			printf("**************************************** \n");
-			printf("Obrigado por usar nosso sistema. Até logo! \n");
-			printf("****************************************");
-			return 0;
-			break;
-			
-			default:
-			printf("\n Essa opção não está disponível. \n");
+		if (strcmp(senha, conteudoArquivo) == 0){ //comparado para ver se as duas strings são iguais, retorna 0 se forem iguais.
+			printf("\nLogin com sucesso, acessando sistema..");
 			system("pause");
-			break;
-		}
+			for(laco=1; laco=1;) //iniciada repetição do menu
+			{	
+				system("cls");
 		
+				setlocale(LC_ALL, "Portuguese"); //definindo linguagem
+	
+				printf("### Cartório da EBAC ### \n \tBem vindo \n\n"); //início menu
+				printf ("Escolha a opção desejada: \n\n");
+				printf ("\t 1 - Registrar nomes\n"); 
+				printf("\t 2 - Consultar nomes\n");
+				printf ("\t 3 - Deletar nomes \n");
+				printf ("\t 4 - Sair do sistema \n\n\n"); //fim do menu
+	
+				printf("Digite a opção:");
+				scanf("%d", &opcao);	//armazenando a escolha do usuário.
+	
+				system("cls");
+	
+				switch(opcao) //escolha de opção do usuário
+				{
+					case 1:	
+					registro();
+					break;
+			
+					case 2:
+					consulta();
+					break;
+			
+					case 3:
+					deletar();
+					break;
+			
+					case 4:
+					printf("**************************************** \n");
+					printf("Obrigado por usar nosso sistema. Até logo! \n");
+					printf("****************************************");
+					return 0;
+					break;
+			
+					default:
+					printf("\n Essa opção não está disponível. \n");
+					system("pause");
+					break;
+				}
+			} 
+		} else {
+			printf("\nSenha incorreta, encerrando o programa.");
+			system("pause");
+		
+		}
 	}
 }
